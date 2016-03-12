@@ -1,0 +1,60 @@
+---
+title: "Project 1: Predicting Boston Housing Prices"
+author: "Lucas Murtinho"
+date: "March 11, 2016"
+output: 
+  html_document:
+    toc: yes
+---
+
+Since we must deliver a PDF along with the iPython notebook, I decided to do the PDF in R; I hope that's ok.
+
+# Getting started
+
+```{r getting_started}
+library(MASS)
+CLIENT_FEATURES = c(11.95, 0.00, 18.100, 0, 0.6590, 5.6090, 90.00, 1.385, 24, 680.0, 20.20, 332.09, 12.13)
+housing_prices = Boston[,14]
+housing_features = Boston[,-14]
+
+```
+
+# Statistical Analysis and Data Exploration
+
+```{r}
+# Number of houses in the dataset
+total_houses = dim(housing_features)[1]
+
+# Number of features in the dataset
+total_features = dim(housing_features)[2]
+
+# Minimum housing value in the dataset
+minimum_price = min(housing_prices)
+
+# Maximum housing value in the dataset
+maximum_price = max(housing_prices)
+
+# Mean house value of the dataset
+mean_price = mean(housing_prices)
+
+# Median house value of the dataset
+median_price = median(housing_prices)
+
+# Standard deviation of housing values of the dataset
+std_dev = sd(housing_prices)
+
+```
+
+Boston Housing dataset statistics (in $1000's):
+
+Total number of houses: `r total_houses`
+
+Total number of features: `r total_features`
+
+Minimum house price: `r minimum_price`
+
+Mean house price: `r sprintf("%.3f", mean_price)`
+
+Median house price: `r median_price`
+
+Standard deviation of house price: `r sprintf("%.3f", std_dev)`
