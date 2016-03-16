@@ -21,6 +21,8 @@ housing_features = Boston[,-14]
 
 # Statistical Analysis and Data Exploration
 
+## Step 1: General Statistics
+
 ```{r}
 # Number of houses in the dataset
 total_houses = dim(housing_features)[1]
@@ -58,3 +60,45 @@ Mean house price: `r sprintf("%.3f", mean_price)`
 Median house price: `r median_price`
 
 Standard deviation of house price: `r sprintf("%.3f", std_dev)`
+
+# Evaluating Model Performance
+
+## Step 2: Shuffling and Splitting Data
+
+```{r}
+train_indices = sample(1:total_houses, total_houses*0.7)
+X_train = housing_features[train_indices,]
+y_train = housing_prices[train_indices]
+X_test = housing_features[-train_indices,]
+y_test = housing_prices[-train_indices]
+```
+
+## Step 3: Performance Metric Function
+
+```{r}
+performance_metric = function(y_true, y_predict) {
+  error = mean((y_true - y_predict)^2)
+  return(error)
+}
+
+performance_metric(y_train, y_train)
+```
+
+## Step 4: Model Fitting
+
+```{r}
+library(caret)
+library(rpart)
+
+fit_model = function(X, y) {
+  grid1 = expand.grid(maxdepth=1:10)
+  train_control = trainControl(method="cv",
+                               number=10)
+  dectree_train = train(x=as.matrix(X),
+                        y=y,
+                        tuneGrid=grid1,
+                        trControl=train_control, 
+                        method="rpart2")
+}
+```
+
